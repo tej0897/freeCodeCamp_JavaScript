@@ -40,7 +40,6 @@ const monsters = [
   }
 ]
 const locations = [
-
   {
     name: "town square",
     "button text": ["Go to store", "Go to cave", "Fight dragon"],
@@ -65,11 +64,17 @@ const locations = [
     "button functions": [attack, dodge, goTown],
     text: "You are fighting a monster."
   },
-    {
-      name: "kill monster",
-      "button text" : ["Go to town square","Go to town square", "Go to town square"],
-      "button functions": [goTown, goTown, goTown],
-      text: "The monster screams Arg! as it dies. You gain experience points and find gold."
+  {
+    name: "kill monster",
+    "button text": ["Go to town square", "Go to town square", "Go to town square"],
+    "button functions": [goTown, goTown, goTown],
+    text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.'
+  },
+  {
+    name: "lose",
+    "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
+    "button functions": [restart, restart, restart],
+    text: "You die. &#x2620;"
   }
 ];
 
@@ -79,6 +84,7 @@ button2.onclick = goCave;
 button3.onclick = fightDragon;
 
 function update(location) {
+  monsterStats.style.display = "none";
   button1.innerText = location["button text"][0];
   button2.innerText = location["button text"][1];
   button3.innerText = location["button text"][2];
@@ -193,5 +199,17 @@ function defeatMonster() {
 }
 
 function lose() {
+  update(locations[5]);
+}
 
+function restart() {
+  xp = 0;
+  health = 100;
+  gold = 50;
+  currentWeapon = 0;
+  inventory = ["stick"];
+  goldText.innerText = gold;
+  healthText.innerText = health;
+  xpText.innerText = xp;
+  goTown();
 }
